@@ -7,6 +7,8 @@
 static TargetDetails Target;
 static BatteryCharacter batteryChar;
 
+#define GERMAN	3u
+
 void test_InferBreach(double lowerLimit, double upperLimit)
 {
     REQUIRE(inferBreach(lowerLimit - 0.0001, lowerLimit, upperLimit) == TOO_LOW);
@@ -66,9 +68,9 @@ void test_sendToEmailKan (void)
     REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana kadime ide\n"));
 }
 
-void test_sendAlertEng(TargetDetails Target)
+void test_sendAlert(TargetDetails Target)
 {
-    sendAlertEng(Target, NORMAL);
+    sendAlert(Target, NORMAL);
 }
 
 /* Test for InferBreach function*/
@@ -113,7 +115,7 @@ TEST_CASE("verifies the alert message sent to another Email targets in KANNADA")
 TEST_CASE("verifies the alert message sent to Email targets in unsupportedLanguage")
 {
     Target.Target = TO_EMAIL;
-    Target.TargetSettings.EmailDetail.Language = GERMAN;
+    Target.TargetSettings.EmailDetail.Language = (AlertLanguage)GERMAN;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "a.b@c.com");
 
     test_sendAlert();  /* prints the message for alert*/
