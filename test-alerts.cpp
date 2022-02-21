@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "test/catch.hpp"
-#include <string.h>
+#include <cstring.h>
 #include "typewise-alert.h"
 
 static TargetDetails Target;
@@ -20,7 +20,7 @@ void test_InferBreach(double lowerLimit, double upperLimit)
 
 void test_classifyTemperatureBreach(void)
 {
-    CoolingType coolingType;
+    unsigned int coolingType;
     double temperatureInC;
 
     AlertLimit TempAlertLimit[NumOfCoolingTypes] = {
@@ -29,7 +29,7 @@ void test_classifyTemperatureBreach(void)
 	{0, 40}  // MED_ACTIVE_COOLING
 };
     /* Checking the limits for all cooling types*/
-    for(coolingType = 0; coolingType < NumOfCoolingTypes;coolingType++)
+    for(coolingType = 0; coolingType < (unsigned int)NumOfCoolingTypes;coolingType++)
     {
         temperatureInC = TempAlertLimit[coolingType].LowerLimit - 1;
         REQUIRE(classifyTemperatureBreach(coolingType, temperatureInC) == TOO_LOW);
