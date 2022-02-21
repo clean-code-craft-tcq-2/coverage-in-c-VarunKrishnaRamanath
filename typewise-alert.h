@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+#include <cstring.h>
 
 typedef enum {
   PASSIVE_COOLING = 0,
