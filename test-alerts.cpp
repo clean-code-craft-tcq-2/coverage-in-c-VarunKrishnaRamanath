@@ -32,13 +32,13 @@ void test_classifyTemperatureBreach(void)
     for(coolingType = 0; coolingType < (unsigned int)NumOfCoolingTypes;coolingType++)
     {
         temperatureInC = TempAlertLimit[coolingType].LowerLimit - 1;
-        REQUIRE(classifyTemperatureBreach(coolingType, temperatureInC) == TOO_LOW);
+        REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == TOO_LOW);
         temperatureInC = TempAlertLimit[coolingType].LowerLimit;
-        REQUIRE(classifyTemperatureBreach(coolingType, temperatureInC) == NORMAL);
+        REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit;
-        REQUIRE(classifyTemperatureBreach(coolingType, temperatureInC) == NORMAL);
+        REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit + 1;
-        REQUIRE(classifyTemperatureBreach(coolingType, temperatureInC) == TOO_HIGH);
+        REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == TOO_HIGH);
     }
 }
 
