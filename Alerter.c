@@ -4,14 +4,14 @@
 
 static TargetDetails AlertTargetDetails;
 
-const char* (*TargetForAlertFunPtr[MaxNumOfAlertTargets])(BreachType) = {
+char* (*TargetForAlertFunPtr[MaxNumOfAlertTargets])(BreachType) = {
 sendToController,
 sendToEmail
 };
 
 char* SendEmail(const char* recepient, const char* message)
 {
-    static messageToPrintEmail[500];
+    static char messageToPrintEmail[500];
     sprintf(messageToPrintEmail, "To: %s\n%s", recepient, message);
 
     return messageToPrintEmail;
@@ -33,7 +33,7 @@ bool LanguageSupported(AlertLanguage Language)
 }
 
 char* sendToController(BreachType breachType) {
-    static messageToPrintController[500];
+    static char messageToPrintController[500];
     sprintf(messageToPrintController, "%x : %x\n", AlertTargetDetails.TargetSettings.header, breachType);
 
     return messageToPrintController;
