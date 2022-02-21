@@ -44,14 +44,14 @@ void test_classifyTemperatureBreach(void)
 
 void test_sendEmail(void)
 {
-    REQUIRE(strcmp(sendEmail("a.b@c.com", "Whats up?"), "To: a.b@c.com\nWhats up?"));
+    REQUIRE(strcmp(SendEmail("a.b@c.com", "Whats up?"), "To: a.b@c.com\nWhats up?"));
 }
 
 void test_LanguageSupported(void)
 {
     REQUIRE(LanguageSupported(ENGLISH) == true);
     REQUIRE(LanguageSupported(KANNADA) == true);
-    REQUIRE(LanguageSupported(GERMAN) == false);
+    REQUIRE(LanguageSupported((AlertLanguage)GERMAN) == false);
 }
 
 void test_sendToEmailEng (void)
@@ -92,7 +92,7 @@ TEST_CASE("verifies the alert message sent to Email targets in ENGLISH")
     Target.TargetSettings.EmailDetail.Language = ENGLISH;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "a.b@c.com");
 
-    test_sendAlert();  /* prints the message for alert*/
+    test_sendAlert(Target);  /* prints the message for alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailEng(); /* returns the message to be printed for given language*/
@@ -105,7 +105,7 @@ TEST_CASE("verifies the alert message sent to another Email targets in KANNADA")
     Target.TargetSettings.EmailDetail.Language = KANNADA;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "bengaluru@kannada.com");
 
-    test_sendAlert();  /* prints the message for alert*/
+    test_sendAlert(Target);  /* prints the message for alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailKan(); /* returns the message to be printed for given language*/
@@ -118,7 +118,7 @@ TEST_CASE("verifies the alert message sent to Email targets in unsupportedLangua
     Target.TargetSettings.EmailDetail.Language = (AlertLanguage)GERMAN;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "a.b@c.com");
 
-    test_sendAlert();  /* prints the message for alert*/
+    test_sendAlert(Target);  /* prints the message for alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailEng(); /* returns the message to be printed for given language*/
