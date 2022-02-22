@@ -11,15 +11,15 @@ const AlertLimit TemperatureAlertLimit[NumOfCoolingTypes] = {
 };
 
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit)
+BreachType inferBreach(double value, AlertLimit Limits)
 {
   BreachType TempBreach = NORMAL;
 
-  if(LESSER_THAN_LOWERLIMIT(value, lowerLimit))
+  if(LESSER_THAN_LOWERLIMIT(value, Limits.lowerLimit))
   {
     TempBreach = TOO_LOW;
   }
-  if(GREATER_THAN_UPPPERLIMIT(value, upperLimit))
+  if(GREATER_THAN_UPPPERLIMIT(value, Limits.upperLimit))
   {
     TempBreach = TOO_HIGH;
   }
@@ -27,10 +27,8 @@ BreachType inferBreach(double value, double lowerLimit, double upperLimit)
 }
 
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC) {
-  double lowerLimit = TemperatureAlertLimit[coolingType].LowerLimit;
-  double upperLimit = TemperatureAlertLimit[coolingType].LowerLimit;
 
-  return inferBreach(temperatureInC, lowerLimit, upperLimit);
+  return inferBreach(temperatureInC, TemperatureAlertLimit[coolingType]);
 }
 
 void checkAndAlert(TargetDetails Target, BatteryCharacter batteryChar, double temperatureInC) {
