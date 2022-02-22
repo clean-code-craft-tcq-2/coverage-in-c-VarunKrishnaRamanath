@@ -52,6 +52,10 @@ char* sendToEmail(BreachType breachType)
       }
     strcpy(PrintMsg, SendEmail(recepient, TempAlertMessage[AlertTargetDetails.TargetSettings.EmailDetail.Language][breachType]));
   }
+  else
+  {
+    strcpy(PrintMsg, "");   
+  }
   return PrintMsg;
 }
 
