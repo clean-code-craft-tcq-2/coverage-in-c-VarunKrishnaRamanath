@@ -27,8 +27,8 @@ BreachType inferBreach(double value, double lowerLimit, double upperLimit)
 }
 
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC) {
-  int lowerLimit = TemperatureAlertLimit[coolingType].LowerLimit;
-  int upperLimit = TemperatureAlertLimit[coolingType].LowerLimit;
+  double lowerLimit = TemperatureAlertLimit[coolingType].LowerLimit;
+  double upperLimit = TemperatureAlertLimit[coolingType].LowerLimit;
 
   return inferBreach(temperatureInC, lowerLimit, upperLimit);
 }
