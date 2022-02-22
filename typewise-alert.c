@@ -15,11 +15,11 @@ BreachType inferBreach(double value, AlertLimit Limits)
 {
   BreachType TempBreach = NORMAL;
 
-  if(LESSER_THAN_LOWERLIMIT(value, Limits.lowerLimit))
+  if(LESSER_THAN_LOWERLIMIT(value, Limits.LowerLimit))
   {
     TempBreach = TOO_LOW;
   }
-  if(GREATER_THAN_UPPPERLIMIT(value, Limits.upperLimit))
+  if(GREATER_THAN_UPPPERLIMIT(value, Limits.UpperLimit))
   {
     TempBreach = TOO_HIGH;
   }
