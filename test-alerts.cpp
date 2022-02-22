@@ -68,6 +68,13 @@ void test_sendToEmailKan (void)
     REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana kadime ide"));
 }
 
+void test_sendToController(void)
+{
+    REQUIRE(strcmp(sendToController(NORMAL),"0xCAFE : %0\n"));
+    REQUIRE(strcmp(sendToController(TOO_HIGH),"0xCAFE : %2\n"));
+    REQUIRE(strcmp(sendToController(TOO_LOW),"0xCAFE : %1\n"));
+}
+
 void test_sendAlert(TargetDetails Target)
 {
     sendAlert(Target, NORMAL);
@@ -93,7 +100,7 @@ TEST_CASE("verifies the alert message sent to Email targets in ENGLISH")
     Target.TargetSettings.EmailDetail.Language = ENGLISH;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "a.b@c.com");
 
-    test_sendAlert(Target);  /* prints the message for alert*/
+    test_sendAlert(Target);  /* sets the target alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailEng(); /* returns the message to be printed for given language*/
@@ -106,7 +113,7 @@ TEST_CASE("verifies the alert message sent to another Email targets in KANNADA")
     Target.TargetSettings.EmailDetail.Language = KANNADA;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "bengaluru@kannada.com");
 
-    test_sendAlert(Target);  /* prints the message for alert*/
+    test_sendAlert(Target);  /* sets the target alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailKan(); /* returns the message to be printed for given language*/
@@ -119,10 +126,20 @@ TEST_CASE("verifies the alert message sent to Email targets in unsupportedLangua
     Target.TargetSettings.EmailDetail.Language = (AlertLanguage)GERMAN;
     strcpy(Target.TargetSettings.EmailDetail.recepient, "a.b@c.com");
 
-    test_sendAlert(Target);  /* prints the message for alert*/
+    test_sendAlert(Target);  /* sets the target for alert*/
     test_sendEmail(); /* tests if this function appends the message to client*/
     test_LanguageSupported(); /* checks if the given language is supported. Default ENGLISH*/
     test_sendToEmailEng(); /* returns the message to be printed for given language*/
+}
+
+/* To test sendToController*/
+TEST_CASE("verifies the alert message sent to controller as target")
+{
+    Target.Target = TO_CONTROLLER;
+    Target.TargetSettings.header = 0xCAFE;
+
+    test_sendAlert(Target);  /* sets the target for alert*/
+    test_sendToController();  /* prints the message for alert*/
 }
 
 TEST_CASE("verifies the checkAndAlert function")
