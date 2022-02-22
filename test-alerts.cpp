@@ -37,7 +37,7 @@ void test_classifyTemperatureBreach(void)
         temperatureInC = TempAlertLimit[coolingType].LowerLimit;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit;
-	prinf("%d, %f\n", coolingType, temperatureInC);
+	printf("%d, %f\n", coolingType, temperatureInC);
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit + 1;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == TOO_HIGH);
