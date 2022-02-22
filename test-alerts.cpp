@@ -3,7 +3,6 @@
 #include "test/catch.hpp"
 #include <string.h>
 #include "typewise-alert.h"
-#include <stdio.h>
 
 static TargetDetails Target;
 static BatteryCharacter batteryChar;
@@ -57,16 +56,14 @@ void test_LanguageSupported(void)
 
 void test_sendToEmailEng (void)
 {
-    printf("%s", sendToEmail(NORMAL));
-    REQUIRE(strcmp(sendToEmail(NORMAL), ""));
+    REQUIRE(strcmp(sendToEmail(NORMAL), "\n"));
     REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: a.b@c.com\nHi, the temperature is too high\n"));
     REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: a.b@c.com\nHi, the temperature is too low\n"));
 }
 
 void test_sendToEmailKan (void)
 {
-    printf("%s", sendToEmail(NORMAL));
-    REQUIRE(strcmp(sendToEmail(NORMAL), ""));
+    REQUIRE(strcmp(sendToEmail(NORMAL), "\n"));
     REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana hechaagide\n"));
     REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana kadime ide\n"));
 }
