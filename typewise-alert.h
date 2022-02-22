@@ -56,7 +56,7 @@ typedef struct{
 
 /* FUNCTIONS */
 void checkAndAlert(TargetDetails Target, BatteryCharacter batteryChar, double temperatureInC);
-BreachType inferBreach(double value, double lowerLimit, double upperLimit);
+BreachType inferBreach(double value, AlertLimit Limits);
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
 void sendAlert(TargetDetails Target, BreachType breachType);
 char* sendToEmail(BreachType breachType);
