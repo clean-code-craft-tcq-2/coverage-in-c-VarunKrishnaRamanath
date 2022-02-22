@@ -10,13 +10,13 @@ static BatteryCharacter batteryChar;
 
 #define GERMAN	3u
 
-void test_InferBreach(double lowerLimit, double upperLimit)
+void test_InferBreach(AlertLimit Limits)
 {
-    REQUIRE(inferBreach(lowerLimit - 0.0001, lowerLimit, upperLimit) == TOO_LOW);
-    REQUIRE(inferBreach(lowerLimit, lowerLimit, upperLimit) == NORMAL);
-    REQUIRE(inferBreach((lowerLimit+upperLimit)/2, lowerLimit, upperLimit) == NORMAL);
-    REQUIRE(inferBreach(upperLimit, lowerLimit, upperLimit) == NORMAL);
-    REQUIRE(inferBreach(upperLimit + 0.0001, lowerLimit, upperLimit) == TOO_HIGH);
+    REQUIRE(inferBreach(Limits.LowerLimit - 0.0001, Limits) == TOO_LOW);
+    REQUIRE(inferBreach(Limits.LowerLimit, Limits) == NORMAL);
+    REQUIRE(inferBreach((Limits.LowerLimit+Limits.UpperLimit)/2, Limits) == NORMAL);
+    REQUIRE(inferBreach(Limits.UpperLimit, Limits) == NORMAL);
+    REQUIRE(inferBreach(Limits.UpperLimit + 0.0001, Limits) == TOO_HIGH);
 }
 
 void test_classifyTemperatureBreach(void)
@@ -79,7 +79,8 @@ void test_sendAlert(TargetDetails Target)
 /* Test for InferBreach function*/
 TEST_CASE("infers the breach according to limits")
 {
-    test_InferBreach(20, 30);
+    AlertLimit TestLimits = {20, 30};
+    test_InferBreach(TestLimits);
 }
 
 /* Test for classifyTemperatureBreach function*/
