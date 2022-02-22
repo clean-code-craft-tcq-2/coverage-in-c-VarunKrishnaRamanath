@@ -3,6 +3,7 @@
 #include "test/catch.hpp"
 #include <string.h>
 #include "typewise-alert.h"
+#include <stdio.h>
 
 static TargetDetails Target;
 static BatteryCharacter batteryChar;
@@ -36,6 +37,7 @@ void test_classifyTemperatureBreach(void)
         temperatureInC = TempAlertLimit[coolingType].LowerLimit;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit;
+	prinf("%d, %f\n", coolingType, temperatureInC);
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit + 1;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == TOO_HIGH);
@@ -44,7 +46,8 @@ void test_classifyTemperatureBreach(void)
 
 void test_sendEmail(void)
 {
-    REQUIRE(strcmp(SendEmail("a.b@c.com", "Whats up?"), "To: a.b@c.com\nWhats up?"));
+	printf("%s", SendEmail("a.b@c.com", "Whats up?"));
+    REQUIRE(strcmp(SendEmail("a.b@c.com", "Whats up?"), "To: a.b@c.com\nWhats up?\n"));
 }
 
 void test_LanguageSupported(void)
@@ -57,7 +60,9 @@ void test_LanguageSupported(void)
 void test_sendToEmailEng (void)
 {
     REQUIRE(strcmp(sendToEmail(NORMAL), ""));
+	printf("%s", sendToEmail(TOO_HIGH));
     REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: a.b@c.com\nHi, the temperature is too high\n"));
+	printf("%s", sendToEmail(TOO_LOW));
     REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: a.b@c.com\nHi, the temperature is too low\n"));
 }
 
