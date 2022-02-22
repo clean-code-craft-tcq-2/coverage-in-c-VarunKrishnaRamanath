@@ -37,7 +37,6 @@ void test_classifyTemperatureBreach(void)
         temperatureInC = TempAlertLimit[coolingType].LowerLimit;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit;
-	printf("%d, %f\n", coolingType, temperatureInC);
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == NORMAL);
         temperatureInC = TempAlertLimit[coolingType].UpperLimit + 1;
         REQUIRE(classifyTemperatureBreach((CoolingType)coolingType, temperatureInC) == TOO_HIGH);
@@ -46,7 +45,6 @@ void test_classifyTemperatureBreach(void)
 
 void test_sendEmail(void)
 {
-	printf("%s", SendEmail("a.b@c.com", "Whats up?"));
     REQUIRE(strcmp(SendEmail("a.b@c.com", "Whats up?"), "To: a.b@c.com\nWhats up?\n"));
 }
 
