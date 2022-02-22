@@ -23,8 +23,8 @@ typedef enum {
 } BreachType;
 
 typedef struct{
-    int LowerLimit;
-    int UpperLimit;
+    double LowerLimit;
+    double UpperLimit;
 }AlertLimit;
 
 typedef enum {
