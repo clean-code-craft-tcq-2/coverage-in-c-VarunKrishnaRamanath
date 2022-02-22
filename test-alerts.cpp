@@ -57,15 +57,15 @@ void test_LanguageSupported(void)
 void test_sendToEmailEng (void)
 {
     REQUIRE(strcmp(sendToEmail(NORMAL), "\n"));
-    REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: a.b@c.com\nHi, the temperature is too high\n"));
-    REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: a.b@c.com\nHi, the temperature is too low\n"));
+    REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: a.b@c.com\nHi, the temperature is too high"));
+    REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: a.b@c.com\nHi, the temperature is too low"));
 }
 
 void test_sendToEmailKan (void)
 {
     REQUIRE(strcmp(sendToEmail(NORMAL), "\n"));
-    REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana hechaagide\n"));
-    REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana kadime ide\n"));
+    REQUIRE(strcmp(sendToEmail(TOO_HIGH), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana hechaagide"));
+    REQUIRE(strcmp(sendToEmail(TOO_LOW), "To: bengaluru@kannada.com\nNamaskara, Thaapamaana kadime ide"));
 }
 
 void test_sendAlert(TargetDetails Target)
